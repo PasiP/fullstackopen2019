@@ -23,6 +23,7 @@
     "watch": "cross-env NODE_ENV=development nodemon index.js",
     "build": "react-scripts build",
     "test": "cross-env NODE_ENV=test jest --verbose --runInBand",
+    "start:test": "cross-env NODE_ENV=e2eTest node index.js",
     "eject": "react-scripts eject",
     "lint": "eslint ."
   },

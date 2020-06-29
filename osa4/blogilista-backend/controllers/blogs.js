@@ -26,8 +26,8 @@ blogsRouter.delete('/:id', async (request, response, next) => {
 
     if ( blog.user.toString() === decodedToken.id.toString() ) {
       await Blog.findByIdAndRemove(request.params.id)
-      response.status(204).end() }
-    else {
+      response.status(204).end()
+    } else {
       return response.status(401).json({ error: 'Unauthorized user' })
     }
   } catch(exception) {
@@ -36,7 +36,6 @@ blogsRouter.delete('/:id', async (request, response, next) => {
 })
 
 blogsRouter.post('/', async (request, response, next) => {
-  console.log(request)
   const body = request.body
   const token = request.token
 
@@ -55,6 +54,8 @@ blogsRouter.post('/', async (request, response, next) => {
       likes: body.likes,
       user: user._id
     })
+
+    // console.log('new blogs user._id:'. user._id)
 
     if (typeof blog.likes === 'undefined' || blog.likes === null) {
       blog.likes = 0
