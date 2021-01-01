@@ -3,10 +3,16 @@ import axios from "axios";
 import { useParams } from "react-router-dom";
 import { apiBaseUrl } from "../constants";
 import { useStateValue, setPatient, setDiagnosisList } from "../state";
-import { EntryFormValues } from "../AddPatientModal/AddEntryForm";
 import { Icon, Button } from "semantic-ui-react";
 import AddEntryModal from "../AddPatientModal/AddEntryModal";
-import { Patient, Diagnosis, Entry, HealthCheckEntry, OccupationalHealthcareEntry, HospitalEntry } from "../types";
+import {
+  Patient,
+  Diagnosis,
+  Entry,
+  HealthCheckEntry,
+  OccupationalHealthcareEntry,
+  HospitalEntry,
+  EntryFormValues } from "../types";
 
 interface EntryListProps {
     entries: Entry[];
@@ -206,11 +212,11 @@ const PatientPage = () => {
   const submitNewEntry = async (values: EntryFormValues) => {
     console.log('SUBMIT: '+ values.type +' '+ values.description +' '+ values.diagnosisCodes);
     try {
-      const { data: newEntry } = await axios.post<HospitalEntry>(
+      const { data: patientFromApi } = await axios.post<Patient>(
         `${apiBaseUrl}/patients/${id}/entries`,
         values
       );
-      dispatch({ type: "ADD_ENTRY", payload: newEntry });
+      dispatch(setPatient(patientFromApi));
       closeModal();
     } catch (e) {
       console.error(e.response.data);

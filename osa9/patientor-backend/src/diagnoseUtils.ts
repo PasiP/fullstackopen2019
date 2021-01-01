@@ -26,7 +26,7 @@ const toNewDiagnoseEntry = (object: any): NewHospitalEntry | NewOccupationalHeal
     case "OccupationalHealthcare":
       newEntry = buildBase(object) as NewOccupationalHealthcareEntry;
       const employerName = parseEmployerName(object.employerName);
-      if(object.sickLeave) {
+      if(object.sickLeave && (object.sickLeave.startDatedate !== '' && object.sickLeave.endDate !== '')) {
         const sickLeave: SickLeaveEntry = parseSickLeave(object.sickLeave);
         return {...newEntry, employerName, sickLeave};
       }
@@ -87,7 +87,10 @@ const isDiagnosisCodes = (codes: any): codes is Array<Diagnosis['code']> => {
 };
 
 const parseDiagnosisCodes = (codes: any): Array<Diagnosis['code']> => {
-  if (!codes || !isDiagnosisCodes(codes)) {
+  if(!codes) {
+    return [] as string[];
+  }
+  if (!isDiagnosisCodes(codes)) {
       throw new Error('Incorrect or missing diagnosisCodes: '+ codes);
   }
   return codes;

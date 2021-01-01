@@ -82,7 +82,7 @@ export const reducer = (state: State, action: Action): State => {
         ...state,
         activePatient: {
           ...state.activePatient,
-          [action.payload.id]: action.payload // tässä on virhe?
+          [action.payload.id]: action.payload
         }
       };
     default:

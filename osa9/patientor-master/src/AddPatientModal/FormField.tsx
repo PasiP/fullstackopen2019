@@ -33,6 +33,42 @@ export const SelectField: React.FC<SelectFieldProps> = ({
   </Form.Field>
 );
 
+export type EntryOption = {
+  value: string;
+  label: string;
+};
+
+// props for select field component
+type SelectEntryFieldProps = {
+  name: string;
+  label: string;
+  options: Array<any>;
+  onChange: Function;
+};
+
+export const SelectEntryField: React.FC<SelectEntryFieldProps> = ({
+  name,
+  label,
+  options,
+  onChange
+}: SelectEntryFieldProps) => {
+  return (
+    <Form.Field>
+      <label>{label}</label>
+      <Field as="select"
+        name={name}
+        className="ui dropdown"
+        onChange={onChange} >
+        {options.map(option => (
+          <option key={option.value} value={option.value}>
+            {option.label || option.value}
+          </option>
+        ))}
+      </Field>
+    </Form.Field>
+  );
+};
+
 interface TextProps extends FieldProps {
   label: string;
   placeholder: string;

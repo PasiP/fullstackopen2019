@@ -9,6 +9,15 @@ export type Entry =
   | OccupationalHealthcareEntry
   | HealthCheckEntry;
 
+export type HospitalFormValues = Omit<HospitalEntry, "id" >;
+export type OccupationalFormValues = Omit<OccupationalHealthcareEntry, "id" >;
+export type HealthCheckFormValues = Omit<HealthCheckEntry, "id" >;
+
+export type EntryFormValues =
+| HospitalFormValues
+| OccupationalFormValues
+| HealthCheckFormValues;
+
 interface BaseEntry {
   id: string;
   type: string;
